@@ -1,14 +1,26 @@
 {
-   "compilerOptions": {
-      "lib": [
-         "es2021"
-      ],
-      "target": "es2021",
-      "module": "commonjs",
-      "moduleResolution": "node",
-      "outDir": "./build",
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "sourceMap": true
-   }
+  "compilerOptions": {
+    "lib": ["es2021"],
+    "target": "es2021",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./build",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+
+    // 👇 Adicionados para resolver caminhos absolutos:
+    "rootDir": "./src",
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["src/*"]
+    },
+
+    // 👇 Recomendados para evitar avisos do VSCode
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "build"]
 }

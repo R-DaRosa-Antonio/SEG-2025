@@ -1,35 +1,36 @@
-// @ts-check
-import eslint from '@eslint/js';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import globals from 'globals';
+import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import prettier from 'eslint-config-prettier';
+import pluginPrettier from 'eslint-plugin-prettier';
 
-export default tseslint.config(
+/**
+ * ESLint Flat Config — NestJS + TypeScript + Prettier
+ */
+export default [
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  prettier,
   {
-    ignores: ['eslint.config.mjs'],
-  },
-  eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
-  eslintPluginPrettierRecommended,
-  {
+    plugins: {
+      prettier: pluginPrettier,
+    },
+    rules: {
+      'prettier/prettier': [
+        'error',
+        {
+          semi: true,
+          singleQuote: true,
+          trailingComma: 'all',
+          endOfLine: 'auto',
+        },
+      ],
+    },
     languageOptions: {
-      globals: {
-        ...globals.node,
-        ...globals.jest,
-      },
-      sourceType: 'commonjs',
+      parser: tseslint.parser,
       parserOptions: {
-        projectService: true,
+        project: ['./tsconfig.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },
   },
-  {
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn',
-      "prettier/prettier": ["error", { endOfLine: "auto" }],
-    },
-  },
-);
+];
