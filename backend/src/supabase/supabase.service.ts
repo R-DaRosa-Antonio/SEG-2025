@@ -1,12 +1,12 @@
-import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common'
-import { SupabaseClient, createClient } from '@supabase/supabase-js'
+import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
+import { SupabaseClient, createClient } from '@supabase/supabase-js';
 
 @Injectable()
 export class SupabaseService implements OnModuleInit, OnModuleDestroy {
-  private client!: SupabaseClient
+  private client!: SupabaseClient;
 
-  private readonly supabaseUrl = process.env.SUPABASE_URL!
-  private readonly supabaseKey = process.env.SUPABASE_KEY!
+  private readonly supabaseUrl = process.env.SUPABASE_URL!;
+  private readonly supabaseKey = process.env.SUPABASE_KEY!;
 
   onModuleInit() {
     this.client = createClient(this.supabaseUrl, this.supabaseKey, {
